@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2시간 완성: 업무 자동화 특강</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(to right, #4f46e5, #9333ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .step-card {
+            transition: all 0.3s ease;
+        }
+        .step-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .active-tab {
+            border-bottom: 2px solid #4f46e5;
+            color: #4f46e5;
+            font-weight: 700;
+        }
+        .inactive-tab {
+            color: #6b7280;
+        }
+        .inactive-tab:hover {
+            color: #374151;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c7c7c7; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a0a0a0; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <div class="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center font-bold">A</div>
+                    <span class="font-bold text-xl tracking-tight">자동화 특강 <span class="text-xs font-normal text-slate-500 ml-1">for Students</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium">
+                    <a href="#intro" class="text-slate-600 hover:text-indigo-600 transition-colors">소개</a>
+                    <a href="#curriculum" class="text-slate-600 hover:text-indigo-600 transition-colors">실습 가이드</a>
+                    <a href="#glossary" class="text-slate-600 hover:text-indigo-600 transition-colors">용어집</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="intro" class="bg-white pt-16 pb-12 px-4 sm:px-6 lg:px-8 text-center border-b border-slate-100">
+        <div class="max-w-3xl mx-auto">
+            <span class="inline-block py-1 px-3 rounded-full bg-indigo-50 text-indigo-600 text-sm font-semibold mb-4">2시간 속성 과정</span>
+            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
+                "열심히 일하지 말고,<br>
+                <span class="gradient-text">똑똑하게 시키세요."</span>
+            </h1>
+            <p class="text-lg text-slate-500 mb-8 max-w-2xl mx-auto">
+                반복되는 업무는 '디지털 비서'에게 맡기고, 여러분은 더 중요한 일에 집중하세요.<br>
+                오늘 우리는 기획부터 구현까지, <strong>나만의 자동화 로봇</strong>을 만듭니다.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#curriculum" class="px-6 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200">
+                    실습 시작하기
+                </a>
+                <a href="https://www.make.com/en/register" target="_blank" class="px-6 py-3 bg-white text-slate-700 border border-slate-300 rounded-lg font-medium hover:bg-slate-50 transition-colors">
+                    Make.com 가입 <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="curriculum" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <!-- Progress Tabs -->
+        <div class="flex overflow-x-auto border-b border-slate-200 mb-8 no-scrollbar" id="tabs-container">
+            <button onclick="switchTab('step1')" id="tab-step1" class="active-tab py-4 px-6 whitespace-nowrap text-sm focus:outline-none transition-colors">
+                1. 오리엔테이션 (10분)
+            </button>
+            <button onclick="switchTab('step2')" id="tab-step2" class="inactive-tab py-4 px-6 whitespace-nowrap text-sm focus:outline-none transition-colors">
+                2. AI로 기획하기 (15분)
+            </button>
+            <button onclick="switchTab('step3')" id="tab-step3" class="inactive-tab py-4 px-6 whitespace-nowrap text-sm focus:outline-none transition-colors">
+                3. 설계도 그리기 (15분)
+            </button>
+            <button onclick="switchTab('step4')" id="tab-step4" class="inactive-tab py-4 px-6 whitespace-nowrap text-sm focus:outline-none transition-colors">
+                4. 데이터 수집 (20분)
+            </button>
+            <button onclick="switchTab('step5')" id="tab-step5" class="inactive-tab py-4 px-6 whitespace-nowrap text-sm focus:outline-none transition-colors">
+                5. 자동화 완성 (50분)
+            </button>
+            <button onclick="switchTab('step6')" id="tab-step6" class="inactive-tab py-4 px-6 whitespace-nowrap text-sm focus:outline-none transition-colors">
+                6. 마무리 (10분)
+            </button>
+        </div>
+
+        <!-- Content Sections -->
+        
+        <!-- STEP 1: Orientation -->
+        <div id="content-step1" class="step-content animate-fade-in">
+            <!-- Part 1: Principles & Goal -->
+            <div class="grid md:grid-cols-2 gap-8 items-center mb-10">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">자동화의 3원칙</h2>
+                    <p class="text-slate-600 mb-6">자동화는 복잡한 코딩이 아닙니다. 아래 3가지만 기억하세요.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex gap-4">
+                            <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-bolt text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800">1. Trigger (방아쇠)</h3>
+                                <p class="text-sm text-slate-500">"언제 시작해?" (예: Tally 폼이 제출되면)</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex gap-4">
+                            <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-play text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800">2. Action (행동)</h3>
+                                <p class="text-sm text-slate-500">"무슨 일을 해?" (예: 메일을 보내)</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex gap-4">
+                            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-link text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800">3. Connection (연결)</h3>
+                                <p class="text-sm text-slate-500">"어떤 도구로?" (예: 지메일, Airtable)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-slate-100 rounded-2xl p-6 h-full flex flex-col justify-center items-center text-center">
+                    <h3 class="text-xl font-bold mb-4">오늘의 목표 시나리오</h3>
+                    <div class="space-y-2 w-full max-w-xs">
+                        <div class="bg-white py-3 px-4 rounded-lg shadow-sm border border-slate-200">
+                            📝 Tally 폼 작성 (Input)
+                        </div>
+                        <div class="text-slate-400"><i class="fa-solid fa-arrow-down"></i></div>
+                        <div class="bg-yellow-50 py-3 px-4 rounded-lg shadow-sm border border-yellow-200 text-yellow-700 font-bold">
+                            🗂️ Airtable 저장 (DB)
+                        </div>
+                        <div class="text-slate-400"><i class="fa-solid fa-arrow-down"></i></div>
+                        <div class="bg-indigo-50 py-3 px-4 rounded-lg shadow-sm border border-indigo-200 text-indigo-700 font-bold">
+                            🪄 수료증 자동 생성 & 발송
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part 1.5: Misconceptions -->
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-10">
+                <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                    <h3 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-circle-exclamation mr-2 text-rose-500"></i>자동화에 대한 대표적인 오해 4가지</h3>
+                </div>
+                <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x border-slate-200">
+                    <div class="p-6 hover:bg-slate-50 transition-colors">
+                        <h4 class="font-bold text-slate-800 mb-3 text-sm"><span class="bg-slate-200 text-slate-700 text-xs px-2 py-0.5 rounded mr-2">오해 1</span>자동화 = 사람을 대체한다?</h4>
+                        <div class="space-y-2 text-sm">
+                            <p class="text-slate-500"><i class="fa-solid fa-xmark text-rose-500 w-5"></i>사람을 없애는 것이 아님</p>
+                            <p class="text-slate-700 font-medium"><i class="fa-solid fa-check text-emerald-600 w-5"></i>반복 업무를 넘기고, <span class="text-indigo-600">판단과 책임</span>은 사람이 함</p>
+                        </div>
+                    </div>
+                    <div class="p-6 hover:bg-slate-50 transition-colors">
+                        <h4 class="font-bold text-slate-800 mb-3 text-sm"><span class="bg-slate-200 text-slate-700 text-xs px-2 py-0.5 rounded mr-2">오해 2</span>완전해야 의미 있다?</h4>
+                        <div class="space-y-2 text-sm">
+                            <p class="text-slate-500"><i class="fa-solid fa-xmark text-rose-500 w-5"></i>처음부터 100% 자동화는 실패함</p>
+                            <p class="text-slate-700 font-medium"><i class="fa-solid fa-check text-emerald-600 w-5"></i><span class="text-indigo-600">부분 자동화</span>만으로도 업무 부담 확 줄어듦</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x border-t border-slate-200">
+                    <div class="p-6 hover:bg-slate-50 transition-colors">
+                        <h4 class="font-bold text-slate-800 mb-3 text-sm"><span class="bg-slate-200 text-slate-700 text-xs px-2 py-0.5 rounded mr-2">오해 3</span>자동화는 개발자의 영역이다?</h4>
+                        <div class="space-y-2 text-sm">
+                            <p class="text-slate-500"><i class="fa-solid fa-xmark text-rose-500 w-5"></i>도구(코딩)를 잘 쓰는 사람이 아님</p>
+                            <p class="text-slate-700 font-medium"><i class="fa-solid fa-check text-emerald-600 w-5"></i>업무 기준을 <span class="text-indigo-600">말로 설명할 수 있는 사람(BA)</span>이 핵심</p>
+                        </div>
+                    </div>
+                    <div class="p-6 hover:bg-slate-50 transition-colors">
+                        <h4 class="font-bold text-slate-800 mb-3 text-sm"><span class="bg-slate-200 text-slate-700 text-xs px-2 py-0.5 rounded mr-2">오해 4</span>자동화는 항상 이득이다?</h4>
+                        <div class="space-y-2 text-sm">
+                            <p class="text-slate-500"><i class="fa-solid fa-xmark text-rose-500 w-5"></i>엉망인 프로세스 자동화 = 리스크 증폭</p>
+                            <p class="text-slate-700 font-medium"><i class="fa-solid fa-check text-emerald-600 w-5"></i>반드시 <span class="text-indigo-600">업무 재정의(청소)</span>가 먼저 되어야 함</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part 2: Automation Roadmap -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <h3 class="text-xl font-bold text-slate-800 mb-6"><i class="fa-solid fa-map-location-dot mr-2 text-indigo-500"></i>자동화 구축 6단계 로드맵</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <!-- Step 1 -->
+                    <div class="text-center p-3 rounded-lg bg-slate-50 border border-slate-100 hover:border-indigo-200 transition-colors group">
+                        <div class="w-8 h-8 mx-auto bg-slate-200 text-slate-600 rounded-full flex items-center justify-center font-bold mb-2 group-hover:bg-indigo-500 group-hover:text-white transition-colors">1</div>
+                        <h4 class="font-bold text-sm mb-1">업무 파악</h4>
+                        <p class="text-xs text-slate-500">반복적인 '복붙' 업무 찾기<br>(규칙 확인)</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="text-center p-3 rounded-lg bg-slate-50 border border-slate-100 hover:border-indigo-200 transition-colors group">
+                        <div class="w-8 h-8 mx-auto bg-slate-200 text-slate-600 rounded-full flex items-center justify-center font-bold mb-2 group-hover:bg-indigo-500 group-hover:text-white transition-colors">2</div>
+                        <h4 class="font-bold text-sm mb-1">기획</h4>
+                        <p class="text-xs text-slate-500">"무엇을 남길까?"<br>목표와 범위 정하기</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="text-center p-3 rounded-lg bg-slate-50 border border-slate-100 hover:border-indigo-200 transition-colors group">
+                        <div class="w-8 h-8 mx-auto bg-slate-200 text-slate-600 rounded-full flex items-center justify-center font-bold mb-2 group-hover:bg-indigo-500 group-hover:text-white transition-colors">3</div>
+                        <h4 class="font-bold text-sm mb-1">설계</h4>
+                        <p class="text-xs text-slate-500">순서도 그리기<br>(Trigger → Action)</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="text-center p-3 rounded-lg bg-slate-50 border border-slate-100 hover:border-indigo-200 transition-colors group">
+                        <div class="w-8 h-8 mx-auto bg-slate-200 text-slate-600 rounded-full flex items-center justify-center font-bold mb-2 group-hover:bg-indigo-500 group-hover:text-white transition-colors">4</div>
+                        <h4 class="font-bold text-sm mb-1">구현</h4>
+                        <p class="text-xs text-slate-500">Make.com으로<br>실제 연결하기</p>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="text-center p-3 rounded-lg bg-slate-50 border border-slate-100 hover:border-indigo-200 transition-colors group">
+                        <div class="w-8 h-8 mx-auto bg-slate-200 text-slate-600 rounded-full flex items-center justify-center font-bold mb-2 group-hover:bg-indigo-500 group-hover:text-white transition-colors">5</div>
+                        <h4 class="font-bold text-sm mb-1">보완</h4>
+                        <p class="text-xs text-slate-500">테스트 실행 후<br>에러 잡기</p>
+                    </div>
+                    <!-- Step 6 -->
+                    <div class="text-center p-3 rounded-lg bg-slate-50 border border-slate-100 hover:border-indigo-200 transition-colors group">
+                        <div class="w-8 h-8 mx-auto bg-slate-200 text-slate-600 rounded-full flex items-center justify-center font-bold mb-2 group-hover:bg-indigo-500 group-hover:text-white transition-colors">6</div>
+                        <h4 class="font-bold text-sm mb-1">유지보수</h4>
+                        <p class="text-xs text-slate-500">잘 돌아가는지<br>가끔 확인하기</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part 3: Simulation -->
+            <div class="mt-8 bg-indigo-50 border border-indigo-100 rounded-xl p-6 text-center animate-pulse-slow">
+                <span class="inline-block bg-white text-indigo-600 text-xs font-bold px-2 py-1 rounded mb-2 border border-indigo-100">체험 실습</span>
+                <h3 class="text-lg font-bold text-indigo-800 mb-2">🚀 만들기 전에 먼저 경험해보세요!</h3>
+                <p class="text-sm text-indigo-600 mb-6">
+                    백문이 불여일견! 우리가 만들 시스템에 <strong>고객의 입장</strong>으로 데이터를 넣어보세요.<br>
+                    "아, 내가 이 폼을 제출하면 자동으로 처리가 되는구나!"를 느껴보는 시간입니다.
+                </p>
+                <a href="https://tally.so/r/GxpdYj" target="_blank" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full transition-all shadow-lg hover:shadow-indigo-300 hover:-translate-y-1">
+                    <span>👉 신청 프로세스 체험하러 가기</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <p class="mt-4 text-xs text-indigo-400">
+                    * 위 링크를 클릭하여 교육 신청 폼을 직접 작성하고 제출해보세요.
+                </p>
+            </div>
+        </div>
+
+        <!-- STEP 2: Planning with AI -->
+        <div id="content-step2" class="step-content hidden animate-fade-in">
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">AI와 함께하는 자동화 기획</h2>
+            <p class="text-slate-500 mb-8">무작정 만들기 전에 <strong>"무엇을, 어떻게"</strong> 자동화할지 AI와 상의하는 단계입니다.</p>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Part 1: Finding Tasks -->
+                <div>
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-full">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="bg-indigo-100 text-indigo-700 w-8 h-8 flex items-center justify-center rounded-full font-bold">1</span>
+                            <h3 class="font-bold text-lg">자동화할 업무 찾기</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4">모든 업무를 자동화할 수는 없습니다. 아래 기준에 맞는 업무를 찾아보세요.</p>
+                        
+                        <div class="space-y-3">
+                            <div class="p-3 bg-slate-50 rounded border-l-4 border-green-500">
+                                <span class="block font-bold text-sm text-slate-700">✅ 자동화 가능 (규칙이 있음)</span>
+                                <span class="text-xs text-slate-500">"신청서가 들어오면 → Airtable에 기록하고 → 메일을 보낸다."</span>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded border-l-4 border-red-400">
+                                <span class="block font-bold text-sm text-slate-700">❌ 자동화 불가능 (판단이 필요함)</span>
+                                <span class="text-xs text-slate-500">"신청 사연을 읽어보고 → 감동적이면 합격시킨다."</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Part 2: AI Planning -->
+                <div>
+                    <div class="bg-gradient-to-br from-indigo-600 to-purple-700 p-6 rounded-xl shadow-lg text-white h-full">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="bg-white/20 w-8 h-8 flex items-center justify-center rounded-full font-bold">2</span>
+                            <h3 class="font-bold text-lg">AI에게 기획 맡기기</h3>
+                        </div>
+                        <p class="text-indigo-100 text-sm mb-4">초보자 맞춤형 프롬프트입니다. AI가 여러분의 상황을 이해하고 <strong>가장 쉬운 방법</strong>을 제안하도록 설계되었습니다.</p>
+                        
+                        <div class="bg-black/30 p-4 rounded-lg backdrop-blur-sm border border-white/10 relative group">
+                            <div class="font-mono text-xs leading-relaxed text-indigo-100 space-y-2">
+                                <p>"나는 <strong>[수강신청 -> 관리 -> 수강증 발급]</strong> 업무를 자동화하고 싶어. 이것을 Make.com에서 구현하려고 해."</p>
+                                <p class="text-indigo-300"># 요청사항</p>
+                                <ul class="list-disc list-inside space-y-1 ml-1">
+                                    <li>Make.com <strong>초보자</strong>니까 <strong>최소 기능(MVP)</strong>으로 설계해줘.</li>
+                                    <li><strong>비개발자</strong>도 이해하기 쉬운 용어로 설명해줘.</li>
+                                    <li>바로 답을 주지 말고, <strong>구현에 필요한 정보가 부족하면 나에게 먼저 질문해줘.</strong> 내 답변을 듣고 나서 전체 시나리오를 짜줘.</li>
+                                </ul>
+                            </div>
+                            <button onclick="copyToClipboard('나는 [수강신청 -> 관리 -> 수강증 발급] 업무를 자동화하고 싶어. 이것을 Make.com에서 구현하려고 해.\n\n# 요청사항\n1. 나는 Make.com 초보자니까 최소한의 기능(MVP)으로 가장 간단하게 설계해줘.\n2. 비개발자도 이해하기 쉽게 쉬운 용어로 설명해줘.\n3. 바로 답을 주지 말고, 구현을 위해 나에게 더 필요한 정보가 있다면 먼저 질문해줘. 내 답변을 들은 뒤에 전체 시나리오를 짜줘.')" class="absolute top-2 right-2 bg-white/20 hover:bg-white/40 text-white text-[10px] px-2 py-1 rounded transition-colors">
+                                프롬프트 복사
+                            </button>
+                        </div>
+                        <p class="mt-4 text-xs text-indigo-200 text-center">
+                            <i class="fa-solid fa-lightbulb mr-1"></i> Tip: 대괄호 [ ] 안의 내용만 내 업무로 바꾸세요!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3: Designing (NEW) -->
+        <div id="content-step3" class="step-content hidden animate-fade-in">
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">설계: 종이에 그려보기</h2>
+            <p class="text-slate-500 mb-8">바로 컴퓨터를 켜지 마세요. <strong>손으로 그릴 수 있어야</strong> 만들 수 있습니다.</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <div>
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm sticky top-24">
+                        <h3 class="font-bold text-lg mb-4 text-slate-800">설계의 3단계</h3>
+                        <div class="space-y-4">
+                            <div class="flex gap-4">
+                                <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-600 shrink-0">1</div>
+                                <div>
+                                    <h4 class="font-bold text-sm">입력(Input) 정의</h4>
+                                    <p class="text-xs text-slate-500">어떤 데이터가 들어오는가? (예: 이름, 이메일)</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-600 shrink-0">2</div>
+                                <div>
+                                    <h4 class="font-bold text-sm">처리(Process) 순서</h4>
+                                    <p class="text-xs text-slate-500">데이터가 어디를 거쳐가는가? (폼 → Airtable → 메일)</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-600 shrink-0">3</div>
+                                <div>
+                                    <h4 class="font-bold text-sm">출력(Output) 확인</h4>
+                                    <p class="text-xs text-slate-500">최종 결과물은 무엇인가? (PDF 수료증)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <!-- Flow 1 -->
+                    <div class="bg-slate-100 p-6 rounded-xl border border-slate-200">
+                        <h3 class="font-bold text-sm mb-4 text-center text-slate-600"><span class="bg-indigo-600 text-white px-2 py-0.5 rounded text-xs mr-2">PART 1</span>신청 접수 및 안내</h3>
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="bg-white border-2 border-slate-300 px-4 py-2 rounded-lg shadow-sm w-48 text-center text-sm font-bold text-slate-700">
+                                📝 Tally 폼 제출<br><span class="text-[10px] text-slate-400 font-normal">(Trigger)</span>
+                            </div>
+                            <div class="text-slate-400"><i class="fa-solid fa-arrow-down"></i></div>
+                            <div class="bg-white border-2 border-yellow-400 px-4 py-2 rounded-lg shadow-sm w-48 text-center text-sm font-bold text-slate-700">
+                                🗂️ Airtable 기록<br><span class="text-[10px] text-slate-400 font-normal">(Action: Create)</span>
+                            </div>
+                            <div class="text-slate-400"><i class="fa-solid fa-arrow-down"></i></div>
+                            <div class="bg-white border-2 border-indigo-400 px-4 py-2 rounded-lg shadow-sm w-48 text-center text-sm font-bold text-slate-700">
+                                📧 안내 메일 발송<br><span class="text-[10px] text-slate-400 font-normal">(Action: Send)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Flow 2 -->
+                    <div class="bg-slate-100 p-6 rounded-xl border border-slate-200">
+                        <h3 class="font-bold text-sm mb-4 text-center text-slate-600"><span class="bg-purple-600 text-white px-2 py-0.5 rounded text-xs mr-2">PART 2</span>수료증 발급 (Batch)</h3>
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="bg-white border-2 border-yellow-400 px-4 py-2 rounded-lg shadow-sm w-48 text-center text-sm font-bold text-slate-700">
+                                🗂️ Airtable 데이터<br><span class="text-[10px] text-slate-400 font-normal">(Source)</span>
+                            </div>
+                            <div class="text-slate-400"><i class="fa-solid fa-arrow-down"></i></div>
+                            <div class="bg-white border-2 border-orange-400 px-4 py-2 rounded-lg shadow-sm w-48 text-center text-sm font-bold text-slate-700">
+                                📄 구글 닥스 생성<br><span class="text-[10px] text-slate-400 font-normal">(Action: Create)</span>
+                            </div>
+                            <div class="text-slate-400"><i class="fa-solid fa-arrow-down"></i></div>
+                            <div class="bg-white border-2 border-green-400 px-4 py-2 rounded-lg shadow-sm w-48 text-center text-sm font-bold text-slate-700">
+                                💾 PDF 다운로드<br><span class="text-[10px] text-slate-400 font-normal">(Action: Download)</span>
+                            </div>
+                            <div class="text-slate-400"><i class="fa-solid fa-arrow-down"></i></div>
+                            <div class="bg-white border-2 border-indigo-400 px-4 py-2 rounded-lg shadow-sm w-48 text-center text-sm font-bold text-slate-700">
+                                📧 수료증 메일 발송<br><span class="text-[10px] text-slate-400 font-normal">(Action: Send)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 4: Data Collection -->
+        <div id="content-step4" class="step-content hidden animate-fade-in">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6">데이터 받고 기억하기 (Input & Storage)</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-1 rounded">Step 4-1</span>
+                        <div class="flex gap-2">
+                            <span class="font-bold text-slate-600">Tally</span>
+                            <span class="text-slate-300">|</span>
+                            <span class="font-bold text-yellow-500">Airtable</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">신청 폼 & Airtable 준비</h3>
+                    <ul class="text-sm text-slate-600 space-y-2 mb-4">
+                        <li><i class="fa-regular fa-square-check mr-2 text-indigo-500"></i>Tally 폼 생성 (항목: 이름, 이메일)</li>
+                        <li><i class="fa-regular fa-square-check mr-2 text-indigo-500"></i>Airtable 가입 후 <strong>Create a base</strong> 클릭</li>
+                        <li><i class="fa-regular fa-square-check mr-2 text-indigo-500"></i>컬럼(Field) 만들기: <strong>Name, Email</strong></li>
+                    </ul>
+                    <div class="bg-amber-50 p-3 rounded text-xs text-amber-700 border border-amber-100">
+                        <i class="fa-solid fa-triangle-exclamation mr-1"></i>
+                        팁: Airtable의 첫 번째 컬럼은 삭제하지 말고 'Name'으로 이름만 바꾸세요.
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2 py-1 rounded">Step 4-2</span>
+                        <span class="font-bold text-indigo-600">Make.com</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Make 시나리오 연결</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 p-2 bg-slate-50 rounded border border-slate-100">
+                            <div class="w-8 h-8 bg-slate-800 text-white rounded-full flex items-center justify-center text-xs font-bold">1</div>
+                            <div class="text-sm">
+                                <span class="font-bold block">Tally</span>
+                                <span class="text-xs text-slate-500">Watch New Response (Trigger)</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-center text-slate-400 text-xs"><i class="fa-solid fa-arrow-down"></i></div>
+                        <div class="flex items-center gap-3 p-2 bg-slate-50 rounded border border-slate-100">
+                            <div class="w-8 h-8 bg-yellow-500 text-white rounded-full flex items-center justify-center text-xs font-bold">2</div>
+                            <div class="text-sm">
+                                <span class="font-bold block">Airtable</span>
+                                <span class="text-xs text-slate-500">Create a Record (Action)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 bg-slate-900 text-slate-300 p-6 rounded-xl">
+                <h4 class="text-white font-bold mb-2"><i class="fa-solid fa-terminal mr-2"></i>실습 체크포인트</h4>
+                <p class="text-sm mb-4">Make에서 시나리오를 구성하고 <span class="text-white bg-indigo-600 px-2 py-0.5 rounded text-xs">Run once</span> 버튼을 누르세요.</p>
+                <div class="flex gap-4">
+                    <button class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded text-sm transition-colors">
+                        폼 제출해보기
+                    </button>
+                    <button class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded text-sm transition-colors">
+                        Airtable에 데이터 들어왔나 확인
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 5: Main Event -->
+        <div id="content-step5" class="step-content hidden animate-fade-in">
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">마법의 순간: 수료증 자동 발급</h2>
+            <p class="text-slate-500 mb-6">데이터를 가져와서 디자인 템플릿에 넣고, PDF로 만들어 이메일까지 보냅니다.</p>
+
+            <div class="space-y-6">
+                <!-- 5-1 Template -->
+                <div class="bg-white border-l-4 border-orange-500 rounded-r-xl shadow-sm p-6">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Step 5-1. 구글 닥스 템플릿 준비</h3>
+                    <p class="text-sm text-slate-600 mb-4">구글 닥스 문서 중앙에 아래 태그를 정확히 입력하세요. 이 부분이 이름으로 바뀝니다.</p>
+                    <div class="flex items-center gap-2 bg-slate-100 p-3 rounded-lg max-w-md">
+                        <code class="text-orange-600 font-mono font-bold">{{NAME}}</code>
+                        <button onclick="copyToClipboard('{{NAME}}')" class="text-xs bg-white border border-slate-300 hover:bg-slate-50 px-2 py-1 rounded">
+                            복사
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 5-2 Make Scenario -->
+                <div class="bg-white border-l-4 border-indigo-500 rounded-r-xl shadow-sm p-6">
+                    <h3 class="text-lg font-bold text-slate-800 mb-4">Step 5-2. 시나리오 확장하기</h3>
+                    <div class="relative pl-8 border-l-2 border-slate-200 space-y-8">
+                        <!-- Node 1 -->
+                        <div class="relative">
+                            <span class="absolute -left-[41px] bg-white border-2 border-slate-200 w-6 h-6 rounded-full flex items-center justify-center text-[10px] text-slate-400">1</span>
+                            <h4 class="font-bold text-sm text-slate-800">Google Docs <span class="font-normal text-slate-500 text-xs ml-2">Create a Document from a Template</span></h4>
+                            <p class="text-xs text-slate-500 mt-1">
+                                - Template ID: 방금 만든 문서 선택<br>
+                                - {{NAME}}: Airtable의 'Name' 필드 매핑
+                            </p>
+                        </div>
+                        <!-- Node 2 -->
+                        <div class="relative">
+                            <span class="absolute -left-[41px] bg-white border-2 border-slate-200 w-6 h-6 rounded-full flex items-center justify-center text-[10px] text-slate-400">2</span>
+                            <h4 class="font-bold text-sm text-slate-800">Google Drive <span class="font-normal text-slate-500 text-xs ml-2">Download a File</span></h4>
+                            <p class="text-xs text-slate-500 mt-1">
+                                - File ID: 위에서 생성된 문서 ID 매핑<br>
+                                - Type: PDF Document (.pdf) 선택
+                            </p>
+                        </div>
+                        <!-- Node 3 -->
+                        <div class="relative">
+                            <span class="absolute -left-[41px] bg-white border-2 border-slate-200 w-6 h-6 rounded-full flex items-center justify-center text-[10px] text-slate-400">3</span>
+                            <h4 class="font-bold text-sm text-slate-800">Gmail <span class="font-normal text-slate-500 text-xs ml-2">Send an Email</span></h4>
+                            <p class="text-xs text-slate-500 mt-1">
+                                - To: 신청자 이메일 주소 (Airtable)<br>
+                                - Attachments: 방금 다운로드한 PDF 데이터 선택
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Success Box -->
+                <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-6 text-white text-center shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">🎉 최종 테스트</h3>
+                    <p class="text-indigo-100 mb-4 text-sm">자신의 이름으로 폼을 제출하고, 1분 뒤 메일함을 확인해보세요.</p>
+                    <div class="inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg text-sm">
+                        "와! 내 이름이 적힌 PDF가 왔어요!"
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 6: Conclusion -->
+        <div id="content-step6" class="step-content hidden animate-fade-in">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6">마무리: 자동화와 함께 성장하기</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- Card 1: AI Feedback -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:border-indigo-300 transition-colors">
+                    <h3 class="font-bold text-lg mb-3 text-indigo-700"><i class="fa-solid fa-robot mr-2"></i>AI 코치에게 점검 받기</h3>
+                    <p class="text-sm text-slate-600 mb-3">
+                        내가 만든 시나리오가 완벽할까요? Make에서 <strong>Blueprint(설계도)</strong>를 다운로드해서 AI에게 물어보세요.
+                    </p>
+                    <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-100 text-xs text-slate-700 relative group">
+                        <p class="font-mono mb-1">"이 파일은 내 Make.com 시나리오의 Blueprint(JSON)야."</p>
+                        <p class="font-bold text-indigo-600">1. 구조적으로 개선할 점이 있어?<br>2. 에러가 날 만한 부분이 어딘지 찾아줘.</p>
+                        <button onclick="copyToClipboard('이 파일은 내 Make.com 시나리오의 Blueprint(JSON)야.\n1. 구조적으로 개선할 점이 있어?\n2. 에러가 날 만한 부분이 어딘지 찾아줘.')" class="absolute top-2 right-2 bg-white/50 hover:bg-white text-indigo-600 px-2 py-1 rounded text-[10px] transition-colors shadow-sm">복사</button>
+                    </div>
+                </div>
+
+                <!-- Card 2: Maintenance & Growth -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:border-green-300 transition-colors">
+                    <h3 class="font-bold text-lg mb-3 text-green-700"><i class="fa-solid fa-seedling mr-2"></i>유지보수와 확장 전략</h3>
+                    <ul class="space-y-4">
+                        <li class="flex gap-3">
+                            <div class="mt-0.5 w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</div>
+                            <div>
+                                <strong class="text-sm block text-slate-800">업무 불편 일지 쓰기</strong>
+                                <p class="text-xs text-slate-500 mt-1">일하다가 "아 귀찮아", "또 이거야?" 하는 순간을 메모하세요. 그게 바로 다음 자동화 대상입니다.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-3">
+                            <div class="mt-0.5 w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</div>
+                            <div>
+                                <strong class="text-sm block text-slate-800">작게 시작해서 키우기</strong>
+                                <p class="text-xs text-slate-500 mt-1">처음부터 거창한 시스템을 만들지 마세요. 내 10분을 아껴주는 작은 프로그램부터 시작해서 점차 확장하는 것이 성공의 지름길입니다.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-center bg-slate-100 rounded-xl p-8">
+                <h3 class="text-xl font-bold mb-4 text-slate-800">수고하셨습니다!</h3>
+                <p class="text-slate-600 mb-8 max-w-lg mx-auto">
+                    이제 여러분은 <strong>'자동화 사고방식'</strong>을 장착했습니다.<br>
+                    오늘 배운 내용을 바탕으로 여러분만의 <strong>디지털 비서</strong>를 계속해서 키워나가세요.
+                </p>
+                <button onclick="location.href='#intro'" class="inline-flex items-center gap-2 text-indigo-600 font-bold hover:text-indigo-800 transition-colors">
+                    <i class="fa-solid fa-rotate-right"></i> 처음으로 돌아가기
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Glossary Section (Always Visible Helper) -->
+    <section id="glossary" class="bg-slate-50 border-t border-slate-200 py-12">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-xl font-bold mb-6 text-slate-800">📖 입문자를 위한 용어 사전</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white p-4 rounded-lg border border-slate-200">
+                    <span class="block text-xs font-bold text-indigo-500 mb-1">Scenario</span>
+                    <strong class="block text-slate-800 mb-1">시나리오</strong>
+                    <span class="text-xs text-slate-500">로봇에게 시킬 전체 업무 흐름도</span>
+                </div>
+                <div class="bg-white p-4 rounded-lg border border-slate-200">
+                    <span class="block text-xs font-bold text-indigo-500 mb-1">Module</span>
+                    <strong class="block text-slate-800 mb-1">모듈 (풍선)</strong>
+                    <span class="text-xs text-slate-500">업무의 각 단계 (클릭해서 설정)</span>
+                </div>
+                <div class="bg-white p-4 rounded-lg border border-slate-200">
+                    <span class="block text-xs font-bold text-indigo-500 mb-1">Mapping</span>
+                    <strong class="block text-slate-800 mb-1">매핑</strong>
+                    <span class="text-xs text-slate-500">데이터 연결하기 (이름 → 이름 칸)</span>
+                </div>
+                <div class="bg-white p-4 rounded-lg border border-slate-200">
+                    <span class="block text-xs font-bold text-indigo-500 mb-1">Operation</span>
+                    <strong class="block text-slate-800 mb-1">오퍼레이션</strong>
+                    <span class="text-xs text-slate-500">로봇이 일한 횟수 (무료: 월 1000회)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-8 text-center text-sm text-slate-400">
+        <p>&copy; 2026 AION Automation Workshop. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        function switchTab(stepId) {
+            // Hide all content
+            const contents = document.querySelectorAll('.step-content');
+            contents.forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Show selected content
+            document.getElementById('content-' + stepId).classList.remove('hidden');
+
+            // Reset tabs styling
+            const tabs = document.querySelectorAll('#tabs-container button');
+            tabs.forEach(tab => {
+                tab.className = 'inactive-tab py-4 px-6 whitespace-nowrap text-sm focus:outline-none transition-colors';
+            });
+
+            // Active tab styling
+            document.getElementById('tab-' + stepId).className = 'active-tab py-4 px-6 whitespace-nowrap text-sm focus:outline-none transition-colors';
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('복사되었습니다: ' + text);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
